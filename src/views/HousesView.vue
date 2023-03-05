@@ -1,18 +1,27 @@
 <template>
-  <navbar class="home">
-
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </navbar>
+  <div class="houses">
+    <h3>Houses</h3>
+    <houses />
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/Houses.vue';
+
+
+import { mapState } from "vuex";
+import Houses from "@/components/Houses.vue";
 
 export default {
-  name: 'HomeView',
+  name: "HousesView",
   components: {
-    HelloWorld,
+    Houses
   },
+  computed: {
+    ...mapState(["houses"])
+  },
+  created() {
+    this.$store.dispatch("fetchHouses");
+  }
 };
 </script>

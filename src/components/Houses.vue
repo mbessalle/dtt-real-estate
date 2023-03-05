@@ -1,11 +1,22 @@
-<template>{{ msg }}</template>
+<template>
+  <div class="houses">
+    <h3>Houses</h3>
+    <ul>
+      <li v-for="house in houses" :key="house.id">
+        {{ house.location  }} - {{ house.price }}
+      </li>
+    </ul>
+  </div>
+</template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String,
-  },
+  name: "Houses",
+  computed: {
+    houses() {
+      return this.$store.state.houses;
+    }
+  }
 };
 </script>
 
