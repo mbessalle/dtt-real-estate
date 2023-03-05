@@ -2,18 +2,22 @@
   <div class="houses">
     <h3>Houses</h3>
     <ul>
-      <div v-for="house in houses" :key="house.id">
-      <h2>{{ house.location.street }}</h2>
-      <img :src="house.image" alt="House image">
-      <p>Price: {{ house.price }}</p>
-      <p>City: {{ house.location.city }}</p>
-      <p>{{ house.location.country }}</p>
-      <p>{{ house.location.postalCode }}</p>
-      <p>Size: {{ house.size }}</p>
-      <p>{{ house.numBathrooms }}</p>
-      <p>{{ house.numBedrooms }}</p>
-      <p>{{ house.numFloors }}</p>
-      <p>{{ house.numParking }}</p>
+      <div class="house-details" v-for="house in houses" :key="house.id">
+        <div class="image-container">
+          <img :src="house.image" alt="House image">
+        </div>
+        <div class="text-container">
+          <h2>{{ house.location.street }}</h2>
+          <p>Price: {{ house.price }}</p>
+          <p>City: {{ house.location.city }}</p>
+          <p>{{ house.location.country }}</p>
+          <p>{{ house.location.postalCode }}</p>
+          <p>Size: {{ house.size }}</p>
+          <p>{{ house.numBathrooms }}</p>
+          <p>{{ house.numBedrooms }}</p>
+          <p>{{ house.numFloors }}</p>
+          <p>{{ house.numParking }}</p>
+        </div>
       </div>
     </ul>
   </div>
@@ -30,28 +34,37 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.house-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  justify-content: center;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
+.image-container {
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
 }
 
 img {
-  width: 200px;
+  width: 100%;
+  height: 100%;
+  align-self: center;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   height: 200px;
 }
 
-a {
-  color: #42b983;
+.house-details p {
+  margin: 0;
 }
+
 </style>
