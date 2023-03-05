@@ -2,9 +2,19 @@
   <div class="houses">
     <h3>Houses</h3>
     <ul>
-      <li v-for="house in houses" :key="house.id">
-        {{ house.location  }} - {{ house.price }}
-      </li>
+      <div v-for="house in houses" :key="house.id">
+      <h2>{{ house.location.street }}</h2>
+      <img :src="house.image" alt="House image">
+      <p>Price: {{ house.price }}</p>
+      <p>City: {{ house.location.city }}</p>
+      <p>{{ house.location.country }}</p>
+      <p>{{ house.location.postalCode }}</p>
+      <p>Size: {{ house.size }}</p>
+      <p>{{ house.numBathrooms }}</p>
+      <p>{{ house.numBedrooms }}</p>
+      <p>{{ house.numFloors }}</p>
+      <p>{{ house.numParking }}</p>
+      </div>
     </ul>
   </div>
 </template>
@@ -34,6 +44,11 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
+}
+
+img {
+  width: 200px;
+  height: 200px;
 }
 
 a {
