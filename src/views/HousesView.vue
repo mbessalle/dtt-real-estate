@@ -1,6 +1,9 @@
 <template>
   <div class="houses">
     <h3>Houses</h3>
+    <input type="text" v-model="searchQuery" placeholder="Search houses...">
+    <button @click="searchHouses">Search</button>
+    <button @click="clearSearch">Clear</button>
     <houses />
   </div>
 </template>
@@ -10,6 +13,7 @@
 
 
 import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import Houses from "@/components/Houses.vue";
 
 export default {

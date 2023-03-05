@@ -5,7 +5,9 @@ module.exports = createStore({
   state: {
     houses: [],
   },
-  getters: {},
+  getters: {
+    houses: (state) => state.houses,
+  },
   mutations: {
     setHouses(state, houses) {
       state.houses = houses;

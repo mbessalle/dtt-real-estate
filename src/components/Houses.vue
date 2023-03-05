@@ -1,6 +1,5 @@
 <template>
   <div class="houses">
-    <h3>Houses</h3>
     <ul>
       <div class="house-details" v-for="house in houses" :key="house.id">
         <div class="image-container">
@@ -66,5 +65,4 @@ img {
 .house-details p {
   margin: 0;
 }
-
 </style>
