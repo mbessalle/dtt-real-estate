@@ -12,6 +12,11 @@ module.exports = createStore({
     setHouses(state, houses) {
       state.houses = houses;
     },
+    sortByPrice(state, sortOrder) {
+      state.houses.sort((a, b) => {
+        return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
+      });
+    },
   },
   actions: {
     async fetchHouses({ commit }) {
@@ -32,6 +37,9 @@ module.exports = createStore({
     filterHouses({ commit, state }, location) {
       const filteredHouses = state.houses.filter(house => house.location === location);
       commit("setHouses", filteredHouses);
+    },
+    sortByPrice({ commit, state }, sortOrder) {
+      commit("sortByPrice", sortOrder);
     },
   },
   modules: {},

@@ -4,11 +4,12 @@
     <input type="text" id="searchQuery" v-model="searchQuery" placeholder="Enter keywords...">
     <button type="submit">Search</button>
     <button type="button" @click="clearSearch">Clear</button>
+    <button type="button" @click="sortByPrice">Sort by Price</button>
     <p v-if="searchQuery && filteredHouses.length === 0">No results found for: {{ searchQuery }}</p>
     <p v-else-if="searchQuery">Search results for: {{ searchQuery }} ({{ filteredHouses.length }} results found)</p>
     <p v-else>Showing all houses ({{ houses.length }} results found)</p>
   </form>
-  <houses :filteredHouses="filteredHouses"/>
+  <houses :filteredHouses="filteredHouses" :sortOrder="sortOrder"/>
 </template>
 
 <script>
@@ -16,7 +17,6 @@
 
 
 import { mapState } from "vuex";
-import { mapGetters } from "vuex";
 import Houses from "@/components/Houses.vue";
 
 export default {
@@ -35,7 +35,8 @@ export default {
   data() {
     return {
       searchQuery: "",
-      filteredHouses: []
+      filteredHouses: [],
+      sortOrder: 'asc'
     };
   },
   created() {
@@ -52,7 +53,13 @@ export default {
     clearSearch() {
       this.searchQuery = "";
       this.filteredHouses = this.houses;
-    }
+    },
+    sortByPrice() {
+    this.filteredHouses.sort((a, b) => {
+      return this.sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
+    });
+    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+  },
   }
 };
 </script>
