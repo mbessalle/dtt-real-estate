@@ -9,7 +9,7 @@
     <p v-else-if="searchQuery">Search results for: {{ searchQuery }} ({{ filteredHouses.length }} results found)</p>
     <p v-else>Showing all houses ({{ houses.length }} results found)</p>
   </form>
-  <houses :filteredHouses="filteredHouses" :sortOrder="sortOrder"/>
+  <houses :filteredHouses="filteredHouses" :sortOrder="sortOrder" :router="$router"/>
 </template>
 
 <script>

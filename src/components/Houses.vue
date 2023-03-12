@@ -14,6 +14,7 @@
           <p>Size: {{ house.size }}</p>
           <p>number of bathrooms: {{ house.rooms.bathrooms }}</p>
           <p>number of bedrooms: {{ house.rooms.bedrooms }}</p>
+          <router-link :to="`/housedetails/${house.id.toString()}`">View Details</router-link>
 
         </div>
       </div>
