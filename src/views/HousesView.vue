@@ -5,11 +5,15 @@
     <button type="submit">Search</button>
     <button type="button" @click="clearSearch">Clear</button>
     <button type="button" @click="sortByPrice">Sort by Price</button>
+    <router-link to="/new">
+      <button type="button">NEW</button>
+    </router-link>
     <p v-if="searchQuery && filteredHouses.length === 0">No results found for: {{ searchQuery }}</p>
     <p v-else-if="searchQuery">Search results for: {{ searchQuery }} ({{ filteredHouses.length }} results found)</p>
     <p v-else>Showing all houses ({{ houses.length }} results found)</p>
   </form>
   <houses :filteredHouses="filteredHouses" :sortOrder="sortOrder" :router="$router" />
+ 
 </template>
 
 <script>

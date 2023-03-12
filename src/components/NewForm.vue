@@ -56,7 +56,7 @@
     </form>
   </template>
   
-  <script>
+<script>
   export default {
     data() {
       return {
@@ -85,7 +85,7 @@
   
         // Create new listing object
         const newListing = {
-          id: Math.floor(Math.random() * 100000) + 1,
+          id: Math.floor(Math.random() * 100000) + 1, // Generate random id
           image: this.image,
           price: this.price,
           rooms: {
@@ -101,7 +101,7 @@
             postalCode: this.postalCode,
             city: this.city,
           },
-          createdAt: new Date().toISOString().slice(0, 10),
+          createdAt: new Date().toISOString().slice(0, 10), // Get current date in YYYY-MM-DD format
           constructionYear: this.constructionYear,
           hasGarage: this.hasGarage,
           madeByMe: true,
@@ -112,4 +112,60 @@
       }
     }
   }
-  
+  </script>
+
+  <style>
+/* Set font and background color */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+}
+
+/* Style the form container */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the input field */
+input[type="text"], 
+input[type="email"], 
+textarea {
+  width: 70%; /* changed width from 100% to 70% */
+  max-width: 400px; /* added max-width to limit the width of the input fields */
+  padding: 12px 20px;
+  margin: 8px auto; /* changed margin to center the input fields */
+  box-sizing: border-box;
+  border: none;
+  border-radius: 4px;
+  background-color: #f2f2f2;
+}
+
+/* Style the submit button */
+input[type="submit"] {
+  background-color: #0076ff;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Change the color of the submit button on hover */
+input[type="submit"]:hover {
+  background-color: #0059b3;
+}
+
+/* Style the form labels */
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+
+</style>

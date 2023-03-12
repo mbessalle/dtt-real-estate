@@ -1,17 +1,18 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
-import HousesView from '../views/HousesView.vue';
-import AboutView from '../views/AboutView.vue';
-import HouseDetails from '../components/HouseDetails.vue';
+import { createRouter, createWebHashHistory } from "vue-router";
+import HousesView from "../views/HousesView.vue";
+import AboutView from "../views/AboutView.vue";
+import HouseDetails from "../components/HouseDetails.vue";
+import NewForm from "../components/NewForm.vue";
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
+    path: "/",
+    name: "home",
     component: HousesView,
   },
   {
-    path: '/about',
-    name: 'about',
+    path: "/about",
+    name: "about",
     component: AboutView,
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -19,10 +20,15 @@ const routes = [
     // component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
   },
   {
-    path: '/housedetails/:id',
-    name: 'HouseDetails',
+    path: "/housedetails/:id",
+    name: "HouseDetails",
     component: HouseDetails,
     props: true,
+  },
+  {
+    path: "/new",
+    name: "NewForm",
+    component: NewForm,
   },
 ];
 
