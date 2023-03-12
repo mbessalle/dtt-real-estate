@@ -1,5 +1,5 @@
 <template>
-    <div class="house-details">
+    <div v-if="house" class="house-details">
       <img v-if="house.image" :src="house.image" alt="House image">
       <p v-else>No image available</p>
       <h2>Address: {{ house.location.street }}, {{ house.location.city }}, {{ house.location.country }}</h2>
@@ -7,10 +7,13 @@
       <p>Description: {{ house.description }}</p>
       <p>Number of bedrooms: {{ house.rooms.bedrooms }}</p>
       <p>Number of bathrooms: {{ house.rooms.bathrooms }}</p>
-      <p>Size: {{ house.size }}</p>
-      <p>Construction: {{ house.construction }}</p>
-      <p>Garage: {{ house.garage }}</p>
+      <p>Size: {{ house.size }} mts2</p>
+      <p>Construction year: {{ house.constructionYear }}</p>
+      <p>Garage: {{ house.hasGarage ? 'Yes' : 'No' }}</p>
     </div>
+<div v-else>
+        <p>House not found. Please reload main page</p>
+        </div>
   </template>
   
   <script>
@@ -19,7 +22,7 @@
   name: "HouseDetails",
   props: {
     id: {
-      type: Number,
+      type: String,
       required: true
     }
   },

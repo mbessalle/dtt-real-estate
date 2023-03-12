@@ -1,5 +1,5 @@
 <template>
-   <form @submit.prevent="searchHouses">
+  <form @submit.prevent="searchHouses">
     <label for="searchQuery">Search houses:</label>
     <input type="text" id="searchQuery" v-model="searchQuery" placeholder="Enter keywords...">
     <button type="submit">Search</button>
@@ -9,7 +9,7 @@
     <p v-else-if="searchQuery">Search results for: {{ searchQuery }} ({{ filteredHouses.length }} results found)</p>
     <p v-else>Showing all houses ({{ houses.length }} results found)</p>
   </form>
-  <houses :filteredHouses="filteredHouses" :sortOrder="sortOrder" :router="$router"/>
+  <houses :filteredHouses="filteredHouses" :sortOrder="sortOrder" :router="$router" />
 </template>
 
 <script>
@@ -24,13 +24,8 @@ export default {
   components: {
     Houses
   },
-  computed: { 
+  computed: {
     ...mapState(["houses"]),
-    filteredHouses() {
-      return this.searchQuery === ''
-        ? this.houses
-        : this.houses.filter(house => house.location.city.toLowerCase().includes(this.searchQuery.toLowerCase()));
-    }
   },
   data() {
     return {
@@ -55,11 +50,11 @@ export default {
       this.filteredHouses = this.houses;
     },
     sortByPrice() {
-    this.filteredHouses.sort((a, b) => {
-      return this.sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
-    });
-    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-  },
+      this.filteredHouses.sort((a, b) => {
+        return this.sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
+      });
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    },
   }
 };
 </script>

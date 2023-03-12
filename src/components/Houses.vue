@@ -7,14 +7,14 @@
         </div>
         <div class="text-container">
           <h2>Street: {{ house.location.street }}</h2>
-          <p>Price: {{ house.price }}</p>
+          <p>Price: {{ house.price }} euros</p>
           <p>City: {{ house.location.city }}</p>
           <p>{{ house.location.country }}</p>
           <p>postal code: {{ house.location.zip }}</p>
-          <p>Size: {{ house.size }}</p>
+          <p>Size: {{ house.size }} mts2</p>
           <p>number of bathrooms: {{ house.rooms.bathrooms }}</p>
           <p>number of bedrooms: {{ house.rooms.bedrooms }}</p>
-          <router-link :to="`/housedetails/${house.id.toString()}`">View Details</router-link>
+          <router-link :to="`/housedetails/${house.id}`">View Details</router-link>
 
         </div>
       </div>
