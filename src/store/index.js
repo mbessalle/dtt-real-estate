@@ -29,6 +29,10 @@ module.exports = createStore({
         console.log("Error fetching data from the API", error);
       }
     },
+    filterHouses({ commit, state }, location) {
+      const filteredHouses = state.houses.filter(house => house.location === location);
+      commit("setHouses", filteredHouses);
+    },
   },
   modules: {},
 });

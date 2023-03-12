@@ -1,21 +1,20 @@
 <template>
   <div class="houses">
     <ul>
-      <div class="house-details" v-for="house in houses" :key="house.id">
+      <div class="house-details" v-for="house in filteredHouses" :key="house.id">
         <div class="image-container">
           <img :src="house.image" alt="House image">
         </div>
         <div class="text-container">
-          <h2>{{ house.location.street }}</h2>
+          <h2>Street: {{ house.location.street }}</h2>
           <p>Price: {{ house.price }}</p>
           <p>City: {{ house.location.city }}</p>
           <p>{{ house.location.country }}</p>
-          <p>{{ house.location.postalCode }}</p>
+          <p>postal code: {{ house.location.zip }}</p>
           <p>Size: {{ house.size }}</p>
-          <p>{{ house.numBathrooms }}</p>
-          <p>{{ house.numBedrooms }}</p>
-          <p>{{ house.numFloors }}</p>
-          <p>{{ house.numParking }}</p>
+          <p>number of bathrooms: {{ house.rooms.bathrooms }}</p>
+          <p>number of bedrooms: {{ house.rooms.bedrooms }}</p>
+
         </div>
       </div>
     </ul>
@@ -25,6 +24,12 @@
 <script>
 export default {
   name: "Houses",
+  props: {
+    filteredHouses: {
+      type: Array,
+      required: true
+    }
+  },
   computed: {
     houses() {
       return this.$store.state.houses;
