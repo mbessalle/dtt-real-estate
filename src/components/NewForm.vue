@@ -26,19 +26,19 @@
     </label>
     <label>
       Street name:
-      <input type="text" v-model="street" required />
+      <input type="text" v-model="streetName" required />
     </label>
     <label>
       House number:
       <input type="text" v-model="houseNumber" required />
     </label>
     <label>
-      Addition:
-      <input type="text" v-model="addition" />
+      numberAddition:
+      <input type="text" v-model="numberAddition" />
     </label>
     <label>
-      Postal Code:
-      <input type="text" v-model="postalCode" required />
+      zip:
+      <input type="text" v-model="zip" required />
     </label>
     <label>
       City:
@@ -66,10 +66,10 @@ export default {
       bathrooms: '',
       size: '',
       description: '',
-      street: '',
+      streetName: '',
       houseNumber: '',
-      addition: '',
-      postalCode: '',
+      numberAddition: '',
+      zip: '',
       city: '',
       constructionYear: '',
       hasGarage: false,
@@ -79,31 +79,29 @@ export default {
   methods: {
     async createListing() {
       // Validate form
-      if (!this.image || !this.price || !this.bedrooms || !this.bathrooms || !this.size || !this.description || !this.street || !this.houseNumber || !this.postalCode || !this.city || !this.constructionYear) {
+      if (!this.image || !this.price || !this.bedrooms || !this.bathrooms || !this.size || !this.description || !this.streetName || !this.houseNumber || !this.zip || !this.city || !this.constructionYear) {
         alert('Please fill in all required fields.')
         return
       }
 
       // Create new data object
-      let data = new FormData();
+      let newHouse = {
+        price: this.price,
+        bedrooms: this.bedrooms,
+        bathrooms: this.bathrooms,
+        size: this.size,
+        streetName: this.streetName,
+        houseNumber: this.houseNumber,
+        numberAddition: this.numberAddition,
+        zip: this.zip,
+        city: this.city,
+        constructionYear: this.constructionYear,
+        hasGarage: this.hasGarage,
+        description: this.description,
 
-      data.append('image', this.image);
-      data.append('price', this.price);
-      data.append('bedrooms', this.bedrooms);
-      data.append('bathrooms', this.bathrooms);
-      data.append('size', this.size);
-      data.append('description', this.description);
-      data.append('street', this.street);
-      data.append('houseNumber', this.houseNumber);
-      data.append('addition', this.addition);
-      data.append('postalCode', this.postalCode);
-      data.append('city', this.city);
-      data.append('constructionYear', this.constructionYear);
-      data.append('hasGarage', this.hasGarage);
-      data.append('madeByMe', true);
-
+      }
       // Add new house to the store
-      await this.$store.dispatch('createHouse', data)
+      await this.$store.dispatch('createHouse', newHouse)
 
       // Reset form fields
       this.image = null;
@@ -112,10 +110,10 @@ export default {
       this.bathrooms = '';
       this.size = '';
       this.description = '';
-      this.street = '';
+      this.streetName = '';
       this.houseNumber = '';
-      this.addition = '';
-      this.postalCode = '';
+      this.numberAddition = '';
+      this.zip = '';
       this.city = '';
       this.constructionYear = '';
       this.hasGarage = false;

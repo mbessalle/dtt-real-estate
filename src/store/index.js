@@ -31,7 +31,7 @@ module.exports = createStore({
         },
       };
       try {
-        const response = await axios.get("/api/houses", config);
+        const response = await axios.get("https://api.intern.d-tt.nl/api/houses", config);
         commit("setHouses", response.data);
         console.log("Houses fetched from the API", JSON.stringify(response.data));
       } catch (error) {
@@ -45,32 +45,17 @@ module.exports = createStore({
     sortByPrice({ commit }, sortOrder) {
       commit("sortByPrice", sortOrder);
     },
-    async createHouse({ commit })
-     {
+    async createHouse({ commit }, newHouse) {
       try {
-        let data = new FormData();
-        data.append('price', '20');
-        data.append('bedrooms', '1');
-        data.append('bathrooms', '1');
-        data.append('size', '1');
-        data.append('streetName', 'Overtoom');
-        data.append('houseNumber', '21');
-        data.append('numberAddition', '1');
-        data.append('zip', '1181TY');
-        data.append('city', 'Amsterdam');
-        data.append('constructionYear', '1960');
-        data.append('hasGarage', 'false');
-        data.append('description', 'Nice house!');
-
         const config = {
           method: "post",
           maxBodyLength: Infinity,
           url: "https://api.intern.d-tt.nl/api/houses",
           headers: {
             "X-Api-Key": "LIhlSFou52fiaEUHVKYXnQT1NC8bdrBM",
-            // ...data.getHeaders()  // 
+            // ...data.getHeaders()  //
           },
-          data: data,
+          data: newHouse,
         };
 
         const response = await axios(config);
