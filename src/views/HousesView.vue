@@ -59,12 +59,6 @@ export default {
       });
       this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     },
-    deleteHouse(house) {
-      if (house.madeByMe) {
-        this.$store.dispatch("deleteHouse", house);
-        this.filteredHouses = this.filteredHouses.filter(h => h !== house);
-      }
-    },
   }
 };
 </script>

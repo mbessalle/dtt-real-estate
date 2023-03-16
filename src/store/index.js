@@ -21,6 +21,9 @@ module.exports = createStore({
     addHouse(state, house) {
       state.houses.push(house);
     },
+    deleteHouse(state, houseId) {
+      state.houses = state.houses.filter((house) => house.id !== houseId);
+    },
   },
   actions: {
     async fetchHouses({ commit }) {
@@ -63,6 +66,21 @@ module.exports = createStore({
         commit("addHouse", response.data);
       } catch (error) {
         console.log("Error creating new house", error);
+      }
+    },
+    async deleteHouse({ commit }, houseId) {
+      try {
+        const config = {
+          method: "delete",
+          headers: {
+            "X-Api-Key": "LIhlSFou52fiaEUHVKYXnQT1NC8bdrBM",
+          },
+        };
+        await axios.delete(`https://api.intern.d-tt.nl/api/houses/${houseId}`, config);
+        commit("deleteHouse", houseId);
+        console.log("House deleted:", houseId);
+      } catch (error) {
+        console.log("Error deleting house", error);
       }
     },
   },
