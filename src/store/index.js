@@ -2,25 +2,29 @@ const { createStore } = require("vuex");
 const axios = require("axios");
 const FormData = require("form-data");
 
+
 module.exports = createStore({
   state: {
     houses: [],
   },
   getters: {
-    houses: (state) => state.houses,
+    houses: (state) => state.houses, //no doing anything yet
   },
   mutations: {
     setHouses(state, houses) {
       state.houses = houses;
     },
+
     sortByPrice(state, sortOrder) {
       state.houses.sort((a, b) => {
         return sortOrder === "asc" ? a.price - b.price : b.price - a.price;
       });
     },
+
     addHouse(state, house) {
       state.houses.push(house);
     },
+
     deleteHouse(state, houseId) {
       state.houses = state.houses.filter((house) => house.id !== houseId);
     },
@@ -48,7 +52,7 @@ module.exports = createStore({
     sortByPrice({ commit }, sortOrder) {
       commit("sortByPrice", sortOrder);
     },
-    async createHouse({ commit }, newHouse) {
+    async createHouse(_, newHouse) {
       try {
         const config = {
           method: "post",
@@ -63,11 +67,38 @@ module.exports = createStore({
 
         const response = await axios(config);
         console.log("New house added:", JSON.stringify(response.data));
-        commit("addHouse", response.data);
+        return response.data.id;
       } catch (error) {
         console.log("Error creating new house", error);
+        throw error;
       }
     },
+
+    async uploadImage(_, { houseId, image }) {
+      try {
+        console.log('House ID:', houseId)
+        const formData = new FormData();
+        formData.append("image", image);
+        console.log('Image object:', image)
+        const config = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: `https://api.intern.d-tt.nl/api/houses/${houseId}/upload`,
+          headers: {
+            "X-Api-Key": "LIhlSFou52fiaEUHVKYXnQT1NC8bdrBM",
+            // ...formData.getHeaders(),
+          },
+          data: formData,
+        };
+
+        await axios(config);
+        console.log("Image uploaded:", image.name);
+      } catch (error) {
+        console.log("Error uploading image", error);
+        throw error;
+      }
+    },
+
     async deleteHouse({ commit }, houseId) {
       try {
         const config = {

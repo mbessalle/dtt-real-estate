@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="createListing">
+  <form ref="houseForm" @submit.prevent="createListing">
     <label>
       Image:
       <input type="file" @change="onFileChange($event)" />
@@ -73,15 +73,15 @@ export default {
       city: '',
       constructionYear: '',
       hasGarage: false,
-      selectedFile: null,
     }
   },
   methods: {
     async createListing() {
-      // Validate form
-      if (!this.image || !this.price || !this.bedrooms || !this.bathrooms || !this.size || !this.description || !this.streetName || !this.houseNumber || !this.zip || !this.city || !this.constructionYear) {
-        alert('Please fill in all required fields.')
-        return
+
+      // Validate the form
+      if (!this.$refs.houseForm.checkValidity()) {
+        console.log('Form validation failed');
+        return;
       }
 
       // Create new data object
@@ -99,32 +99,28 @@ export default {
         hasGarage: this.hasGarage,
         description: this.description,
 
-      }
-      // Add new house to the store
-      await this.$store.dispatch('createHouse', newHouse)
+      };
 
-      // Reset form fields
-      this.image = null;
-      this.price = '';
-      this.bedrooms = '';
-      this.bathrooms = '';
-      this.size = '';
-      this.description = '';
-      this.streetName = '';
-      this.houseNumber = '';
-      this.numberAddition = '';
-      this.zip = '';
-      this.city = '';
-      this.constructionYear = '';
-      this.hasGarage = false;
+      try {
+        const houseId = await this.$store.dispatch('createHouse', newHouse)
+
+        if (this.image) {
+          await this.$store.dispatch('uploadImage', { houseId, image: this.image })
+        }
+
+
+        // Reset the form and clear the image property
+        this.$refs.houseForm.reset();
+        this.image = null;
+
+      }
+      catch (error) {
+        console.log('Error creating listing', error);
+      }
+
     },
     onFileChange(event) {
-      const file = event
-        .target.files[0]; // Get the first file uploaded
-      // Check if a file is uploaded
-      if (file) {
-        this.image = file;
-      };
+      this.image = event.target.files[0]; // Get the first file uploaded
     },
   }
 
