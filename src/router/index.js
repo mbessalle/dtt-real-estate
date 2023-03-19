@@ -23,7 +23,9 @@ const routes = [
     path: "/housedetails/:id",
     name: "HouseDetails",
     component: HouseDetails,
-    props: true,
+    props: (route) => ({
+      id: Number(route.params.id),
+    }),
   },
   {
     path: "/new",
