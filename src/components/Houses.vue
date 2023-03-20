@@ -14,6 +14,7 @@
           <p>number of bathrooms: {{ house.rooms.bathrooms }}</p>
           <p>number of bedrooms: {{ house.rooms.bedrooms }}</p>
           <button v-if="house.madeByMe" @click="deleteHouse(house.id)">Delete</button>
+          <button v-if="house.madeByMe" @click="editHouse(house.id)">Edit</button>
           <router-link :to="`/housedetails/${house.id}`">View Details</router-link>
 
         </div>
@@ -39,7 +40,12 @@ export default {
   methods: {
     deleteHouse(houseId) {
       this.$store.dispatch("deleteHouse", houseId);
+    },
+
+    editHouse(houseId) {
+      this.$store.dispatch("editHouse", houseId);
     }
+
   }
 };
 </script>

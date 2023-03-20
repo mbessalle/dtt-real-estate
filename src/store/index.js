@@ -31,6 +31,7 @@ module.exports = createStore({
     deleteHouse(state, houseId) {
       state.houses = state.houses.filter((house) => house.id !== houseId);
     },
+
   },
   actions: {
     async fetchHouses({ commit }) {
