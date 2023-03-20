@@ -75,6 +75,8 @@ export default {
       hasGarage: false,
     }
   },
+
+
   methods: {
     async createListing() {
 
@@ -107,6 +109,7 @@ export default {
         if (this.image) {
           await this.$store.dispatch('uploadImage', { houseId, image: this.image })
         }
+
 
 
         // Reset the form and clear the image property

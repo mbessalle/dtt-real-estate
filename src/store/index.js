@@ -2,14 +2,11 @@ const { createStore } = require("vuex");
 const axios = require("axios");
 const FormData = require("form-data");
 
-
 module.exports = createStore({
   state: {
     houses: [],
   },
-  getters: {
-    houses: (state) => state.houses, //no doing anything yet
-  },
+
   mutations: {
     setHouses(state, houses) {
       state.houses = houses;
@@ -76,10 +73,10 @@ module.exports = createStore({
 
     async uploadImage(_, { houseId, image }) {
       try {
-        console.log('House ID:', houseId)
+        console.log("House ID:", houseId);
         const formData = new FormData();
         formData.append("image", image);
-        console.log('Image object:', image)
+        console.log("Image object:", image);
         const config = {
           method: "post",
           maxBodyLength: Infinity,

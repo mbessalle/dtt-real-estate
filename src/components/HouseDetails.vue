@@ -1,5 +1,6 @@
 <template>
-  <div v-if="house" class="house-details">
+  <div v-if="!house">Loading...</div>
+  <div v-else-if="house" class="house-details">
     <img v-if="house.image" :src="house.image" alt="House image">
     <p v-else>No image available</p>
     <h2>Address: {{ house.location.street }}, {{ house.location.city }}, {{ house.location.country }}</h2>
@@ -18,12 +19,24 @@
   
 <script>
 import { mapState } from 'vuex';
+import Houses from "@/components/Houses.vue";
 export default {
   name: "HouseDetails",
+  components: {
+    Houses
+  },
   props: {
     id: {
       type: Number,
       required: true
+    }
+  },
+  async created() {
+    try {
+      await this.$store.dispatch("fetchHouses");
+      this.filteredHouses = this.houses;
+    } catch (error) {
+      console.log("Error fetching houses:", error);
     }
   },
   computed: {
