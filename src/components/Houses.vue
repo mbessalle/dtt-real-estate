@@ -13,8 +13,8 @@
           <p>Size: {{ house.size }} mts2</p>
           <p>number of bathrooms: {{ house.rooms.bathrooms }}</p>
           <p>number of bedrooms: {{ house.rooms.bedrooms }}</p>
-          <button v-if="house.madeByMe" @click="deleteHouse(house.id)">Delete</button>
-          <button v-if="house.madeByMe" @click="editHouse(house.id)">Edit</button>
+          <button v-if="house.madeByMe" @click="deleteHouse(house.id)" tag="button">Delete</button>
+          <router-link v-if="house.madeByMe" :to="`/housedetails/${house.id}`" tag="button">Edit</router-link>
           <router-link :to="`/housedetails/${house.id}`">View Details</router-link>
 
         </div>

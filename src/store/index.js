@@ -6,6 +6,7 @@ module.exports = createStore({
   state: {
     houses: [],
   },
+
   getters: {
     houses: (state) => state.houses,
     latestHouse: (state) => state.houses[state.houses.length - 1],
@@ -13,6 +14,7 @@ module.exports = createStore({
       return state.houses.find((house) => house.id === id);
     },
   },
+
   mutations: {
     setHouses(state, houses) {
       state.houses = houses;
@@ -32,7 +34,11 @@ module.exports = createStore({
       state.houses = state.houses.filter((house) => house.id !== houseId);
     },
 
+    updateHouse(state, { index, updatedHouse }) {
+      state.houses.splice(index, 1, updatedHouse);
+    },
   },
+
   actions: {
     async fetchHouses({ commit }) {
       const config = {
@@ -118,7 +124,28 @@ module.exports = createStore({
         console.log("Error deleting house", error);
       }
     },
-  },
 
+    async updateHouse({ commit, state }, updatedHouse) {
+      try {
+        const config = {
+          method: "put",
+          url: `https://api.intern.d-tt.nl/api/houses/${updatedHouse.id}`,
+          headers: {
+            "X-Api-Key": "LIhlSFou52fiaEUHVKYXnQT1NC8bdrBM",
+          },
+          data: updatedHouse,
+        };
+
+        const response = await axios(config);
+        const index = state.houses.findIndex((house) => house.id === updatedHouse.id);
+        if (index !== -1) {
+          commit("updateHouse", { index, updatedHouse: response.data });
+        }
+        console.log("House updated:", JSON.stringify(response.data));
+      } catch (error) {
+        console.log("Error updating house", error);
+      }
+    },
+  },
   modules: {},
 });
