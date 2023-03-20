@@ -6,7 +6,13 @@ module.exports = createStore({
   state: {
     houses: [],
   },
-
+  getters: {
+    houses: (state) => state.houses,
+    latestHouse: (state) => state.houses[state.houses.length - 1],
+    getHouseById: (state) => (id) => {
+      return state.houses.find((house) => house.id === id);
+    },
+  },
   mutations: {
     setHouses(state, houses) {
       state.houses = houses;

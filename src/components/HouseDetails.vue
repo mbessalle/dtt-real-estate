@@ -35,6 +35,7 @@ export default {
     try {
       await this.$store.dispatch("fetchHouses");
       this.filteredHouses = this.houses;
+      
     } catch (error) {
       console.log("Error fetching houses:", error);
     }

@@ -1,65 +1,71 @@
 <template>
-  <form ref="houseForm" @submit.prevent="createListing">
-    <label>
-      Image:
-      <input type="file" @change="onFileChange($event)" />
-    </label>
-    <label>
-      Price:
-      <input type="number" v-model.number="price" required />
-    </label>
-    <label>
-      Number of bedrooms:
-      <input type="number" v-model.number="bedrooms" required />
-    </label>
-    <label>
-      Number of bathrooms:
-      <input type="number" v-model.number="bathrooms" required />
-    </label>
-    <label>
-      Size:
-      <input type="number" v-model.number="size" required />
-    </label>
-    <label>
-      Description:
-      <textarea v-model="description" required></textarea>
-    </label>
-    <label>
-      Street name:
-      <input type="text" v-model="streetName" required />
-    </label>
-    <label>
-      House number:
-      <input type="text" v-model="houseNumber" required />
-    </label>
-    <label>
-      numberAddition:
-      <input type="text" v-model="numberAddition" />
-    </label>
-    <label>
-      zip:
-      <input type="text" v-model="zip" required />
-    </label>
-    <label>
-      City:
-      <input type="text" v-model="city" required />
-    </label>
-    <label>
-      Construction year:
-      <input type="number" v-model.number="constructionYear" required />
-    </label>
-    <label>
-      Has garage:
-      <input type="checkbox" v-model="hasGarage" />
-    </label>
-    <button type="submit">Create Listing</button>
-  </form>
+  <div>
+    <div v-if="loading" class="popup">
+      <p>Creating new listing...</p>
+    </div>
+    <form ref="houseForm" @submit.prevent="createListing" v-else>
+      <label>
+        Image:
+        <input type="file" @change="onFileChange($event)" />
+      </label>
+      <label>
+        Price:
+        <input type="number" v-model.number="price" required />
+      </label>
+      <label>
+        Number of bedrooms:
+        <input type="number" v-model.number="bedrooms" required />
+      </label>
+      <label>
+        Number of bathrooms:
+        <input type="number" v-model.number="bathrooms" required />
+      </label>
+      <label>
+        Size:
+        <input type="number" v-model.number="size" required />
+      </label>
+      <label>
+        Description:
+        <textarea v-model="description" required></textarea>
+      </label>
+      <label>
+        Street name:
+        <input type="text" v-model="streetName" required />
+      </label>
+      <label>
+        House number:
+        <input type="text" v-model="houseNumber" required />
+      </label>
+      <label>
+        numberAddition:
+        <input type="text" v-model="numberAddition" />
+      </label>
+      <label>
+        zip:
+        <input type="text" v-model="zip" required />
+      </label>
+      <label>
+        City:
+        <input type="text" v-model="city" required />
+      </label>
+      <label>
+        Construction year:
+        <input type="number" v-model.number="constructionYear" required />
+      </label>
+      <label>
+        Has garage:
+        <input type="checkbox" v-model="hasGarage" />
+      </label>
+      <button type="submit">Create Listing</button>
+    </form>
+  </div>
 </template>
   
 <script>
 export default {
   data() {
     return {
+      loading: false,
       image: null,
       price: '',
       bedrooms: '',
@@ -79,6 +85,8 @@ export default {
 
   methods: {
     async createListing() {
+
+      this.loading = true;
 
       // Validate the form
       if (!this.$refs.houseForm.checkValidity()) {
@@ -110,7 +118,14 @@ export default {
           await this.$store.dispatch('uploadImage', { houseId, image: this.image })
         }
 
+        // Fetch houses
+        await this.$store.dispatch('fetchHouses')
 
+        //find the new house
+        const house = this.$store.getters.getHouseById(houseId)
+
+        // Navigate to the new house
+        this.$router.push(`/houseDetails/${houseId}`)
 
         // Reset the form and clear the image property
         this.$refs.houseForm.reset();
@@ -125,8 +140,7 @@ export default {
     onFileChange(event) {
       this.image = event.target.files[0]; // Get the first file uploaded
     },
-  }
-
+  },
 }
 </script>
 
